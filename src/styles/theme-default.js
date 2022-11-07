@@ -1,58 +1,57 @@
 export const BACKGROUND_COLOR = '#fff'
 export const LINE_HEIGHT = '20px'
-export const FONT_SIZE = '13px'
+export const FONT_SIZE = '14px'
 
 export const defaultCssTheme = `
 .codeflask {
   background: ${BACKGROUND_COLOR};
-  color: #4f559c;
+  color: hsl(230, 8%, 24%);
+}
+
+.codeflask:has(> textarea:focus) {
+  border: 1px solid #06f;
+  box-shadow: 0 0 0 3px rgb(0 102 255 / 15%);
+  transition: border .2s,box-shadow .2s;
 }
 
 .codeflask .token.punctuation {
-  color: #4a4a4a;
+  color: hsl(230, 8%, 24%);
 }
 
 .codeflask .token.keyword {
-  color: #8500ff;
+  color: hsl(301, 63%, 40%);
 }
 
 .codeflask .token.operator {
-  color: #ff5598;
+  color: hsl(221, 87%, 60%);
 }
 
-.codeflask .token.string {
-  color: #41ad8f;
+.codeflask .token.string,
+.codeflask .token.selector,
+.codeflask .token.attr-value {
+  color: hsl(119, 34%, 47%);
 }
 
 .codeflask .token.comment {
-  color: #9badb7;
+  color: hsl(230, 4%, 64%);
 }
 
 .codeflask .token.function {
-  color: #8500ff;
+  color: hsl(221, 87%, 60%);
 }
 
-.codeflask .token.boolean {
-  color: #8500ff;
+.codeflask .token.boolean,
+.codeflask .token.number,
+.codeflask .token.attr-name {
+  color: hsl(35, 99%, 36%);
 }
 
-.codeflask .token.number {
-  color: #8500ff;
-}
-
-.codeflask .token.selector {
-  color: #8500ff;
-}
-
-.codeflask .token.property {
-  color: #8500ff;
-}
-
+.codeflask .token.property,
 .codeflask .token.tag {
-  color: #8500ff;
+  color: hsl(5, 74%, 59%);
 }
 
 .codeflask .token.attr-value {
-  color: #8500ff;
+  color: #f6a434;
 }
 `

@@ -11,7 +11,6 @@ export interface CodeFlaskOptions {
   rtl?: boolean
   tabSize?: number
   enableAutocorrect?: boolean
-  lineNumbers?: boolean
   defaultTheme?: boolean
   areaId?: string
   ariaLabelledby?: string

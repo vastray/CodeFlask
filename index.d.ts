@@ -13,6 +13,7 @@ export interface CodeFlaskOptions {
   defaultTheme?: boolean
   readonly?: boolean
   handleTabs?: boolean
+  name?: string
 }
 
 export default class CodeFlask {

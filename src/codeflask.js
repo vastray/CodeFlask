@@ -94,12 +94,17 @@ export default class CodeFlask {
     this.opts.defaultTheme = this.opts.defaultTheme !== false
     this.opts.readonly = this.opts.readonly || null
     this.opts.handleTabs = this.opts.handleTabs || true
+    this.opts.name = this.opts.name || null
 
     if (this.opts.autocorrect === false) {
       this.elTextarea.setAttribute('spellcheck', 'false')
       this.elTextarea.setAttribute('autocapitalize', 'off')
       this.elTextarea.setAttribute('autocomplete', 'off')
       this.elTextarea.setAttribute('autocorrect', 'off')
+    }
+
+    if (this.opts.name) {
+      this.elTextarea.setAttribute('name', this.opts.name)
     }
 
     if (this.opts.defaultTheme) {

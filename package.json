@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@types/prismjs": "^1.9.1",
+    "autosize": "^5.0.1",
     "prismjs": "^1.14.0"
   },
   "devDependencies": {

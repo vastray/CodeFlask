@@ -2,6 +2,7 @@ import { editorCss } from './styles/editor'
 import { injectCss } from './styles/injector'
 import { defaultCssTheme } from './styles/theme-default'
 import { escapeHtml } from './utils/html-escape'
+import autosize from 'autosize'
 import Prism from 'prismjs'
 
 
@@ -67,6 +68,7 @@ export default class CodeFlask {
   createTextarea () {
     this.elTextarea = this.createElement('textarea', this.elWrapper)
     this.elTextarea.classList.add('codeflask__textarea', 'codeflask__flatten')
+    autosize(this.elTextarea);
   }
 
   createPre () {
@@ -87,33 +89,13 @@ export default class CodeFlask {
   }
 
   runOptions () {
-    this.opts.rtl = this.opts.rtl || false
-    this.opts.tabSize = this.opts.tabSize || 2
-    this.opts.enableAutocorrect = this.opts.enableAutocorrect || false
+    this.opts.tabSize = this.opts.tabSize || 4
+    this.opts.autocorrect = this.opts.autocorrect || false
     this.opts.defaultTheme = this.opts.defaultTheme !== false
-    this.opts.areaId = this.opts.areaId || null
-    this.opts.ariaLabelledby = this.opts.ariaLabelledby || null
     this.opts.readonly = this.opts.readonly || null
+    this.opts.handleTabs = this.opts.handleTabs || true
 
-    // if handleTabs is not either true or false, make it true by default
-    if (typeof this.opts.handleTabs !== 'boolean') {
-      this.opts.handleTabs = true
-    }
-    // if handleTabs is not either true or false, make it true by default
-    if (typeof this.opts.handleSelfClosingCharacters !== 'boolean') {
-      this.opts.handleSelfClosingCharacters = true
-    }
-    // if handleTabs is not either true or false, make it true by default
-    if (typeof this.opts.handleNewLineIndentation !== 'boolean') {
-      this.opts.handleNewLineIndentation = true
-    }
-
-    if (this.opts.rtl === true) {
-      this.elTextarea.setAttribute('dir', 'rtl')
-      this.elPre.setAttribute('dir', 'rtl')
-    }
-
-    if (this.opts.enableAutocorrect === false) {
+    if (this.opts.autocorrect === false) {
       this.elTextarea.setAttribute('spellcheck', 'false')
       this.elTextarea.setAttribute('autocapitalize', 'off')
       this.elTextarea.setAttribute('autocomplete', 'off')
@@ -122,14 +104,6 @@ export default class CodeFlask {
 
     if (this.opts.defaultTheme) {
       injectCss(defaultCssTheme, 'theme-default', this.opts.styleParent)
-    }
-
-    if (this.opts.areaId) {
-      this.elTextarea.setAttribute('id', this.opts.areaId)
-    }
-
-    if (this.opts.ariaLabelledby) {
-      this.elTextarea.setAttribute('aria-labelledby', this.opts.ariaLabelledby)
     }
 
     if (this.opts.readonly) {
@@ -152,12 +126,6 @@ export default class CodeFlask {
         return;
       }
       this.handleTabs(e)
-      this.handleSelfClosingCharacters(e)
-      this.handleNewLineIndentation(e)
-    })
-
-    this.elTextarea.addEventListener('scroll', (e) => {
-      this.elPre.style.transform = `translate3d(-${e.target.scrollLeft}px, -${e.target.scrollTop}px, 0)`
     })
   }
 
@@ -233,112 +201,6 @@ export default class CodeFlask {
       this.updateCode(newCode)
       this.elTextarea.selectionEnd = selEndPos + this.opts.tabSize
     }
-  }
-
-  handleSelfClosingCharacters (e) {
-    if (!this.opts.handleSelfClosingCharacters) return
-    const openChars = ['(', '[', '{', '<', '\'', '"']
-    const closeChars = [')', ']', '}', '>', '\'', '"']
-    const key = e.key
-
-    if (!openChars.includes(key) && !closeChars.includes(key)) {
-      return
-    }
-
-    switch (key) {
-      case '(':
-      case ')':
-        this.closeCharacter(key)
-        break
-
-      case '[':
-      case ']':
-        this.closeCharacter(key)
-        break
-
-      case '{':
-      case '}':
-        this.closeCharacter(key)
-        break
-
-      case '<':
-      case '>':
-        this.closeCharacter(key)
-        break
-
-      case '\'':
-        this.closeCharacter(key)
-        break
-
-      case '"':
-        this.closeCharacter(key)
-        break
-    }
-  }
-
-  handleNewLineIndentation (e) {
-    if (!this.opts.handleNewLineIndentation) return
-    if (e.keyCode !== 13) {
-      return
-    }
-
-    e.preventDefault()
-    var input = this.elTextarea
-    var selStartPos = input.selectionStart
-    var selEndPos = input.selectionEnd
-    var inputVal = input.value
-
-    var beforeSelection = inputVal.substr(0, selStartPos)
-    var afterSelection = inputVal.substring(selEndPos)
-
-    var lineStart = inputVal.lastIndexOf('\n', selStartPos - 1)
-    var spaceLast = lineStart + inputVal.slice(lineStart + 1).search(/[^ ]|$/)
-    var indent = (spaceLast > lineStart) ? (spaceLast - lineStart) : 0
-    var newCode = beforeSelection + '\n' + ' '.repeat(indent) + afterSelection
-
-    input.value = newCode
-    input.selectionStart = selStartPos + indent + 1
-    input.selectionEnd = selStartPos + indent + 1
-
-    this.updateCode(input.value)
-  }
-
-  closeCharacter (char) {
-    const selectionStart = this.elTextarea.selectionStart
-    const selectionEnd = this.elTextarea.selectionEnd
-
-    if (!this.skipCloseChar(char)) {
-      let closeChar = char
-      switch (char) {
-        case '(':
-          closeChar = String.fromCharCode(char.charCodeAt() + 1)
-          break
-        case '<':
-        case '{':
-        case '[':
-          closeChar = String.fromCharCode(char.charCodeAt() + 2)
-          break
-      }
-      const selectionText = this.code.substring(selectionStart, selectionEnd)
-      const newCode = `${this.code.substring(0, selectionStart)}${selectionText}${closeChar}${this.code.substring(selectionEnd)}`
-      this.updateCode(newCode)
-    } else {
-      const skipChar = this.code.substr(selectionEnd, 1) === char
-      const newSelectionEnd = skipChar ? selectionEnd + 1 : selectionEnd
-      const closeChar = !skipChar && ['\'', '"'].includes(char) ? char : ''
-      const newCode = `${this.code.substring(0, selectionStart)}${closeChar}${this.code.substring(newSelectionEnd)}`
-      this.updateCode(newCode)
-      this.elTextarea.selectionEnd = ++this.elTextarea.selectionStart
-    }
-
-    this.elTextarea.selectionEnd = selectionStart
-  }
-
-  skipCloseChar (char) {
-    const selectionStart = this.elTextarea.selectionStart
-    const selectionEnd = this.elTextarea.selectionEnd
-    const hasSelection = Math.abs(selectionEnd - selectionStart) > 0
-    return [')', '}', ']', '>'].includes(char) || (['\'', '"'].includes(char) && !hasSelection)
   }
 
   updateCode (newCode) {

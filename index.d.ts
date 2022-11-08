@@ -8,13 +8,11 @@ export type LanguageDefinition = {
 
 export interface CodeFlaskOptions {
   language?: string
-  rtl?: boolean
   tabSize?: number
-  enableAutocorrect?: boolean
+  autocorrect?: boolean
   defaultTheme?: boolean
-  areaId?: string
-  ariaLabelledby?: string
   readonly?: boolean
+  handleTabs?: boolean
 }
 
 export default class CodeFlask {

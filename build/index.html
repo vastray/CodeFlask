@@ -6,38 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>CodeFlask Test Page</title>
   <script src="codeflask.min.js"></script>
-  <style>
-    body {
-      font-family: Arial;
-      margin: 30px;
-    }
-  </style>
 </head>
 <body>
-  <h1 id="header1">Testing below:</h1>
+  <h1>Testing below:</h1>
 
-  <div class="test">// Feel free to play with the code. :)
+  <div class="test"><p>awdad</p></div>
 
-function Hey(phrase) {
-  phrase = phrase || "Hey";
-  return console.log(phrase);
-}
-
-window.onLoad = function() {
-  Hey();
-  Hey("Jude");
-  Hey("Don't make it bad.");
-}
-</div>
   <script>
-    const flask = new CodeFlask('.test', {
-      lineNumbers: true,
-      areaId: 'thing1',
-      ariaLabelledby: 'header1',
-      handleTabs: true
-    });
-
+    const flask = new CodeFlask('.test', {});
     window['flask'] = flask;
   </script>
+
 </body>
 </html>

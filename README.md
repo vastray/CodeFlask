@@ -1,28 +1,4 @@
-[![npm version](https://badge.fury.io/js/codeflask.svg)](https://www.npmjs.com/package/codeflask)
-[![Build Status](https://travis-ci.org/kazzkiq/CodeFlask.svg?branch=master)](https://travis-ci.org/kazzkiq/CodeFlask)
 
-<p align="center">
-  <img src="logo.png" width="190"><br>
-    CodeFlask: A micro code-editor for awesome web pages.
-</p>
-
-<p align="center">
-  <img src="code.png" width="739">
-</p>
-
-## Installation
-
-You can install CodeFlask via npm:
-
-```
-npm install codeflask
-```
-
-Or use it directly in browser via cdn service:
-
-```
-https://unpkg.com/codeflask/build/codeflask.min.js
-```
 
 ## Usage
 
@@ -66,28 +42,6 @@ flask.updateCode('const my_new_code_here = "Blabla"');
 
 ```js
 const code = flask.getCode();
-```
-
-### Enabling line numbers
-
-```js
-import CodeFlask from 'codeflask';
-
-const flask = new CodeFlask('#my-selector', {
-  language: 'js',
-  lineNumbers: true
-});
-```
-
-### Enabling rtl (right to left writing)
-
-```js
-import CodeFlask from 'codeflask';
-
-const flask = new CodeFlask('#my-selector', {
-  language: 'js',
-  rtl: true
-});
 ```
 
 ### Enabling read only mode

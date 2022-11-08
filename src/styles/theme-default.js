@@ -8,12 +8,6 @@ export const defaultCssTheme = `
   color: hsl(230, 8%, 24%);
 }
 
-.codeflask:has(> textarea:focus) {
-  border: 1px solid #06f;
-  box-shadow: 0 0 0 3px rgb(0 102 255 / 15%);
-  transition: border .2s,box-shadow .2s;
-}
-
 .codeflask .token.punctuation {
   color: hsl(230, 8%, 24%);
 }

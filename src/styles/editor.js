@@ -5,10 +5,7 @@ const FONT_FAMILY = `"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Couri
 
 export const editorCss = `
   .codeflask {
-    overflow: hidden;
     position: relative;
-    min-height: 200px;
-    border: 1px solid #cbd3de;
     border-radius: 6px;
   }
 
@@ -18,8 +15,12 @@ export const editorCss = `
 
   .codeflask__pre {
     pointer-events: none;
-    z-index: 3;
-    position: relative;
+    z-index: 2;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid transparent;
   }
 
   .codeflask__textarea {
@@ -27,14 +28,19 @@ export const editorCss = `
     border: none;
     color: transparent;
     resize: none;
-    -webkit-appearance: pre;
     caret-color: #111;
-    z-index: 2;
+    z-index: 3;
     width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
+    border: 1px solid #cbd3de;
+    display: block;
+    border-radius: 6px;
+  }
+
+  .codeflask__textarea:focus {
+    border: 1px solid #06f;
+    box-shadow: 0 0 0 3px rgb(0 102 255 / 15%);
+    transition: border .2s,box-shadow .2s;
   }
 
   .codeflask__code {
@@ -63,9 +69,5 @@ export const editorCss = `
     height: ${LINE_HEIGHT};
     background: rgba(0,0,0,0.1);
     z-index: 1;
-  }
-
-  .codeflask__lines__line {
-    display: block;
   }
 `

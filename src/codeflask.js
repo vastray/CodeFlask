@@ -214,6 +214,7 @@ export default class CodeFlask {
     this.elCode.innerHTML = escapeHtml(newCode)
     this.highlight()
     setTimeout(this.runUpdate.bind(this), 1)
+    autosize.update(this.elTextarea)
   }
 
   updateLanguage (newLanguage) {

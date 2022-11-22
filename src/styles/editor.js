@@ -46,6 +46,7 @@ export const editorCss = `
   .codeflask__code {
     display: block;
     overflow: hidden;
+    font-family: inherit;
   }
 
   .codeflask__flatten {

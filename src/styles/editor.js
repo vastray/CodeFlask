@@ -6,7 +6,6 @@ const FONT_FAMILY = `"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Couri
 export const editorCss = `
   .codeflask {
     position: relative;
-    border-radius: 6px;
   }
 
   .codeflask, .codeflask * {
@@ -32,14 +31,14 @@ export const editorCss = `
     z-index: 3;
     width: 100%;
     position: relative;
-    border: 1px solid #cbd3de;
+    border: 1px solid #ced3d9;
     display: block;
-    border-radius: 6px;
+    border-radius: 8px;
   }
 
   .codeflask__textarea:focus {
     border: 1px solid #06f;
-    box-shadow: 0 0 0 3px rgb(0 102 255 / 15%);
+    box-shadow: 0 0 0 1px #06f;
     transition: border .2s,box-shadow .2s;
   }
 
